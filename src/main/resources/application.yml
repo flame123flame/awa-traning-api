@@ -1,0 +1,63 @@
+#show sql statement
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: false
+        #show sql values
+        type:
+          descriptor:
+            sql: false
+# System
+server:
+  port: 9000
+  servlet:
+    context-path: /awa-training-api
+
+# DB
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  jmx:
+    enabled: false
+  jpa:
+    database-platform: org.hibernate.dialect.SQLServerDialect
+    show-sql: false
+    open-in-view: false
+    properties:
+      enable_lazy_load_no_trans: true
+      hibernate:
+        format_sql: true
+  datasource:
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    jdbc-url: jdbc:sqlserver://baiwa.ddns.net:7002;databaseName=AWA_TRAINING;useUnicode=true;characterEncoding=UTF-8;encrypt=true;trustServerCertificate=true
+    username: developer
+    password: Baiwa123
+
+  servlet:
+    multipart:
+      max-file-size: 15MB
+      max-request-size: 15MB
+
+# JWT
+jwt:
+  secret: am-secret-key-jwt
+  # 5 hour (5 * 60 * 60)
+  time-expire: 18000
+
+application:
+  version: 0.0.0.1
+  security:
+    enable: false
+  cors:
+    enable: true
+    allowed-origins: "*"
+    allowed-headers: "*"
+    expose-headers: "Content-Disposition"
+    allowed-methods: "*"
+    allow-credentials: false
+    max-age: 1800
+  file-path:
+    unix: /Users/??????/Project/Awa/image/
+    window: C:\\awa_training\\
