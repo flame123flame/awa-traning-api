@@ -14,6 +14,7 @@ import java.util.List;
 @ConfigurationProperties(prefix = "application")
 public class ApplicationConfig {
     private Cors cors = new Cors();
+    private Security security = new Security();
     private FilePath filePath = new FilePath();
 
     @Getter
@@ -21,6 +22,12 @@ public class ApplicationConfig {
     public static class FilePath {
         private String unix;
         private String window;
+    }
+
+    @Getter
+    @Setter
+    public static class Security {
+        private boolean enable;
     }
 
     @Getter
