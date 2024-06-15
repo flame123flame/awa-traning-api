@@ -35,4 +35,11 @@ public interface TeacherRepository extends JpaRepository<TeacherEntity, Long> {
     @Modifying
     @Query(value = "DELETE FROM TeacherEntity u WHERE u.id = :id")
     void delete(@Param("id") Long id);
+
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE StudentEntity SET is_delete = 1 WHERE u.id = :id")
+    void softDelete(@Param("id") Long id);
+
+
 }
