@@ -29,7 +29,7 @@ public interface TeacherRepository extends JpaRepository<TeacherEntity, Long> {
 
     @Transactional
     @Query(value = "select * from teacher WHERE id = :id" , nativeQuery = true)
-    Optional<TeacherEntity> update(@Param("id") Long id);
+    Optional<TeacherEntity> findById(@Param("id") Long id);
 
     @Transactional
     @Modifying

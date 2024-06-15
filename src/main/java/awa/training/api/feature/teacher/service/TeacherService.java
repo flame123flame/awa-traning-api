@@ -1,6 +1,8 @@
 package awa.training.api.feature.teacher.service;
 
+import awa.training.api.common.ErrorCode;
 import awa.training.api.common.model.CommonResponse;
+import awa.training.api.exception.HandleException;
 import awa.training.api.feature.teacher.dto.TeacherDTO;
 import awa.training.api.feature.teacher.entity.TeacherEntity;
 import awa.training.api.feature.teacher.repository.TeacherRepository;
@@ -45,7 +47,7 @@ public class TeacherService {
     @Transactional
     public CommonResponse<TeacherDTO.UpdateTeacherRes> update(TeacherDTO.UpdateTeacherRes id) {
         CommonResponse<TeacherDTO.UpdateTeacherRes> response = new CommonResponse<>();
-        Optional<TeacherEntity> teacherOptional = teacherRepository.update(id.getId());
+        Optional<TeacherEntity> teacherOptional = teacherRepository.findById(id.getId());
         TeacherEntity teacher = teacherOptional.get();
 
         teacher.setUniversityId(id.getUniversityId());
@@ -85,7 +87,7 @@ public class TeacherService {
     @Transactional
     public CommonResponse<TeacherDTO.FindAllTeacherRes> findById(Long id) {
         CommonResponse<TeacherDTO.FindAllTeacherRes> response = new CommonResponse<>();
-        Optional<TeacherEntity> userOptional = teacherRepository.update(id);
+        Optional<TeacherEntity> userOptional = teacherRepository.findById(id);
         TeacherEntity TeacherById = userOptional.get();
         TeacherDTO.FindAllTeacherRes data = new TeacherDTO.FindAllTeacherRes();
         data.setId(TeacherById.getId());
@@ -102,10 +104,11 @@ public class TeacherService {
     }
 
     @Transactional
-    public CommonResponse<TeacherDTO.DeleteTeacherReq> delete(TeacherDTO.DeleteTeacherReq id) {
+    public CommonResponse<TeacherDTO.DeleteTeacherReq> delete(TeacherDTO.DeleteTeacherReq req) {
         CommonResponse<TeacherDTO.DeleteTeacherReq> response = new CommonResponse<>();
-        teacherRepository.delete(id.getId());
-
+        TeacherEntity teacherEntity = teacherRepository.findById(req.getId()).orElseThrow(() -> new HandleException(ErrorCode.DATA_NOT_FOUND_IN_ID));
+        teacherEntity.setDelete(true);
+        teacherRepository.save(teacherEntity);
         return response;
     }
 
