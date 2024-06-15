@@ -14,9 +14,14 @@ import java.util.Optional;
 @Repository
 public interface TeacherRepository extends JpaRepository<TeacherEntity, Long> {
 
-    @Transactional
-    Optional<TeacherEntity> findByUsername(String teacherName);
     boolean existsByTeacherName(String teacherName);
+
+    @Transactional
+    Optional<TeacherEntity> findByTeacherNameEn(String teacherName);
+
+    @Transactional
+    @Query(value = "select * from teacher WHERE teacher_name_en = :teacher_name_en" , nativeQuery = true)
+    Optional<TeacherEntity> findByTeacherNameEn(@Param("teacher_name_en") Long teacherNameEn);
 
     @Transactional
     @Query(value = "select * from teacher" , nativeQuery = true)
