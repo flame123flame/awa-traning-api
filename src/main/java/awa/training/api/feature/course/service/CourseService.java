@@ -26,16 +26,16 @@ public class CourseService {
     @Transactional
     public CommonResponse<Object> create(CourseDTO.CreateCourseReq req) {
         CommonResponse<Object> response = new CommonResponse<>();
-        if (courseRepository.existsByCourseName(req.getCourseName())) {
-            throw new HandleException(ErrorCode.DUPLICATE_USER);
-        }
+//        if (courseRepository.existsByCourseName(req.getCourseName())) {
+//            throw new HandleException(ErrorCode.DUPLICATE_USER);
+//        }
 
         CourseEntity courseEntity = new CourseEntity();
         courseEntity.setTeacherId(req.getTeacherId());
         courseEntity.setCourseName(req.getCourseName());
         courseEntity.setCourseNameEn(req.getCourseNameEn());
         courseEntity.setCourseShortName(req.getCourseShortName());
-        courseEntity.setCreateBy(req.getCreateBy());
+        courseEntity.setCreateBy("System");
         courseEntity.setCreateDate(LocalDateTime.now());
         courseRepository.save(courseEntity);
 
@@ -105,7 +105,9 @@ public class CourseService {
     @Transactional
     public CommonResponse<CourseDTO.DeleteCourseReq> delete(CourseDTO.DeleteCourseReq req) {
         CommonResponse<CourseDTO.DeleteCourseReq> response = new CommonResponse<>();
-        courseRepository.delete(req.getId());
+        CourseEntity courseEntity = courseRepository.findById(req.getId()).orElseThrow(() -> new HandleException(ErrorCode.DATA_NOT_FOUND_IN_ID));
+        courseEntity.setDelete(true);
+        courseRepository.delete(courseEntity);
 
         return response;
     }

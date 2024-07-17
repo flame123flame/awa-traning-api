@@ -3,6 +3,7 @@ package awa.training.api.feature.enrollment.controller;
 import awa.training.api.common.model.CommonResponse;
 import awa.training.api.feature.enrollment.dto.EnrollmentDTO;
 import awa.training.api.feature.enrollment.service.EnrollmentService;
+import awa.training.api.feature.teacher.dto.TeacherDTO;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,10 +23,11 @@ public class EnrollmentController {
         return ResponseEntity.ok(enrollmentService.create(req));
     }
 
-    @PutMapping("/update}")
-    public ResponseEntity<CommonResponse<EnrollmentDTO.UpdateEnrollmentRes>> update(@Valid @RequestBody EnrollmentDTO.UpdateEnrollmentRes req) {
+    @PostMapping("/update")
+    public ResponseEntity<CommonResponse<EnrollmentDTO.UpdateEnrollmentRes>> updateEnrollment(@Valid @RequestBody EnrollmentDTO.UpdateEnrollmentRes req ) {
         return ResponseEntity.ok(enrollmentService.update(req));
     }
+
 
     @GetMapping("/find-all")
     public ResponseEntity<CommonResponse<List<EnrollmentDTO.FindAllEnrollmentRes>>> findAll() {

@@ -28,6 +28,9 @@ public class ExamScoresEntity {
     @Column(name = "sum_score")
     private float sumScore;
 
+    @Column(name = "exam_gpa")
+    private String examGpa;
+
     @Column(name = "Semester")
     private String semester;
 
@@ -45,5 +48,5 @@ public class ExamScoresEntity {
 
     @Column(name = "update_by")
     private String updateBy;
-    
+
 }

@@ -1,6 +1,7 @@
 package awa.training.api.feature.enrollment.repository;
 
 import awa.training.api.feature.enrollment.entity.EnrollmentEntity;
+import awa.training.api.feature.teacher.entity.TeacherEntity;
 import awa.training.api.feature.users.entity.UsersEntity;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,6 +19,9 @@ public interface EnrollmentRepository extends JpaRepository<EnrollmentEntity, Lo
 //    @Transactional
 //    Optional<EnrollmentEntity> findByEnrollmentName(String enrollmentName);
 //    boolean existsByEnrollmentName(String enrollmentName);
+    @Transactional
+    @Query(value = "select * from enrollment WHERE student_id = :student_id" , nativeQuery = true)
+    Optional<EnrollmentEntity> findByStudentId(@Param("student_id") Long studentId);
 
     @Transactional
     @Query(value = "select * from enrollment" , nativeQuery = true)
@@ -25,7 +29,7 @@ public interface EnrollmentRepository extends JpaRepository<EnrollmentEntity, Lo
 
     @Transactional
     @Query(value = "select * from enrollment WHERE id = :id" , nativeQuery = true)
-    Optional<EnrollmentEntity> findById(@Param("id") Long id);
+    Optional<EnrollmentEntity> findById(@Param("id") Long req);
 
 
     @Transactional

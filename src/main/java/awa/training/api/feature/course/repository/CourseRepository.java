@@ -1,6 +1,7 @@
 package awa.training.api.feature.course.repository;
 
 import awa.training.api.feature.course.entity.CourseEntity;
+import awa.training.api.feature.teacher.entity.TeacherEntity;
 import awa.training.api.feature.university.entity.UniversityEntity;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,8 +15,12 @@ import java.util.Optional;
 
 @Repository
 public interface CourseRepository extends JpaRepository<CourseEntity, Long> {
-    Optional<CourseEntity> findByCourseName(String courseName);
-    boolean existsByCourseName(String courseName);
+//    Optional<CourseEntity> findByCourseName(String courseName);
+//    boolean existsByCourseName(String courseName);
+
+    @Transactional
+    @Query(value = "select * from course WHERE courseNameEn = :courseNameEn" , nativeQuery = true)
+    Optional<CourseEntity> findByCourseNameEn(@Param("courseNameEn") Long courseNameEn);
 
     @Transactional
     @Query(value = "select * from course" , nativeQuery = true)

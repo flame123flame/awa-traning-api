@@ -17,7 +17,7 @@ public class TeacherController {
 
     private final TeacherService teacherService;
 
-    @PostMapping("/Create")
+    @PostMapping("/create")
     public ResponseEntity<CommonResponse<Object>> Create(@Valid @RequestBody TeacherDTO.CreateTeacherReq dto) {
         return ResponseEntity.ok(teacherService.create(dto));
     }

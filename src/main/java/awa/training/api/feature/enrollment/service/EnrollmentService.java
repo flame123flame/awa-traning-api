@@ -4,6 +4,8 @@ import awa.training.api.common.model.CommonResponse;
 import awa.training.api.feature.enrollment.dto.EnrollmentDTO;
 import awa.training.api.feature.enrollment.entity.EnrollmentEntity;
 import awa.training.api.feature.enrollment.repository.EnrollmentRepository;
+import awa.training.api.feature.teacher.dto.TeacherDTO;
+import awa.training.api.feature.teacher.entity.TeacherEntity;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,8 +39,8 @@ public class EnrollmentService {
     @Transactional
     public CommonResponse<EnrollmentDTO.UpdateEnrollmentRes> update(EnrollmentDTO.UpdateEnrollmentRes req) {
         CommonResponse<EnrollmentDTO.UpdateEnrollmentRes> response = new CommonResponse<>();
-        Optional<EnrollmentEntity> enrollmentOptional = enrollmentRepository.findById(req.getId());
-        EnrollmentEntity enrollment = enrollmentOptional.get();
+        Optional<EnrollmentEntity> teacherOptional = enrollmentRepository.findById(req.getId());
+        EnrollmentEntity enrollment = teacherOptional.get();
 
         enrollment.setCourseId(req.getCourseId());
         enrollment.setStudentId(req.getStudentId());
@@ -46,7 +48,6 @@ public class EnrollmentService {
         enrollment.setUpdateDate(LocalDateTime.now());
 
         enrollmentRepository.save(enrollment);
-
 
         return response;
     }

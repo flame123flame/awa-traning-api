@@ -1,6 +1,7 @@
 package awa.training.api.feature.exam_scores.repository;
 
 import awa.training.api.feature.exam_scores.entity.ExamScoresEntity;
+import awa.training.api.feature.teacher.entity.TeacherEntity;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -13,10 +14,12 @@ import java.util.Optional;
 
 @Repository
 public interface ExamScoresRepository extends JpaRepository<ExamScoresEntity, Long> {
+//    @Transactional
+//    Optional<ExamScoresEntity> findByExamScoresName(String examScoresName);
+//    boolean existsByExamScoresName(String examScoresName);
     @Transactional
-    Optional<ExamScoresEntity> findByExamScoresName(String examScoresName);
-
-    boolean existsByExamScoresName(String examScoresName);
+    @Query(value = "select * from exam_scores WHERE enrollment_id = :enrollment_id" , nativeQuery = true)
+    Optional<ExamScoresEntity> findByEnrollmentId(@Param("enrollment_id") Long enrollmentId);
 
     @Transactional
     @Query(value = "select * from exam_scores" , nativeQuery = true)

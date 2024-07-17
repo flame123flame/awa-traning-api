@@ -32,7 +32,7 @@ public class ExamScoresController {
     }
 
     @GetMapping("/find-by-id")
-    public ResponseEntity<CommonResponse<ExamScoresDTO.FindAllExamScoresRes>> findById(@PathVariable("id") Long id) {
+    public ResponseEntity<CommonResponse<ExamScoresDTO.FindAllExamScoresRes>> findById(@Valid @RequestParam(value = "id") Long id) {
         return ResponseEntity.ok(examScoresService.findById(id));
     }
 

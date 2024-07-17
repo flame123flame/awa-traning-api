@@ -15,6 +15,17 @@ public class EnrollmentDTO {
         private Long studentId;
         private Long courseId;
         private String createBy;
+
+    }
+
+    @Getter
+    @Setter
+    public static class UpdateEnrollmentRes {
+        private Long id;
+        private Long studentId;
+        private Long courseId;
+        private LocalDateTime updateDate;
+        private String updateBy;
     }
 
     @Getter
@@ -25,16 +36,6 @@ public class EnrollmentDTO {
         private Long courseId;
         private LocalDateTime createDate;
         private String createBy;
-        private LocalDateTime updateDate;
-        private String updateBy;
-    }
-
-    @Getter
-    @Setter
-    public static class UpdateEnrollmentRes {
-        private Long id;
-        private Long studentId;
-        private Long courseId;
         private LocalDateTime updateDate;
         private String updateBy;
     }

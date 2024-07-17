@@ -14,7 +14,7 @@ public class StudentDTO {
         private Long studentId;
         private String studentName;
         private String studentNameEn;
-        private boolean studentStatus;
+        //private boolean studentStatus;
         private String createBy;
     }
 

@@ -26,6 +26,7 @@ public class ExamScoresDTO {
         private float midtermScore;
         private float finalScore;
         private float sumScore;
+        private String examGpa;
         private String semester;
         private String createBy;
         private String updateBy;

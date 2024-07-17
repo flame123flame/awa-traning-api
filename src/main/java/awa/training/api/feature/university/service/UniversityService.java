@@ -102,7 +102,9 @@ public class UniversityService {
         @Transactional
         public CommonResponse<UniversityDTO.DeleteUniversityReq> delete(UniversityDTO.DeleteUniversityReq id) {
             CommonResponse<UniversityDTO.DeleteUniversityReq> response = new CommonResponse<>();
-            universityRepository.delete(id.getId());
+            UniversityEntity universityEntity = universityRepository.findById(id.getId()).orElseThrow(() -> new HandleException(ErrorCode.DATA_NOT_FOUND_IN_ID));
+            universityEntity.setDelete(true);
+            universityRepository.save(universityEntity);
 
             return response;
         }

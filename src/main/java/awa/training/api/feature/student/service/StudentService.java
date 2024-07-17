@@ -29,17 +29,17 @@ public class StudentService {
 //        if (studentRepository.existsByUniversityName(req.getUniversityName())) {
 //            throw new HandleException(ErrorCode.DUPLICATE_USER);
 //        }
-
         StudentEntity studentEntity = new StudentEntity();
         studentEntity.setUniversityId(req.getUniversityId());
         studentEntity.setStudentId(req.getStudentId());
         studentEntity.setStudentName(req.getStudentName());
         studentEntity.setStudentNameEn(req.getStudentNameEn());
-        studentEntity.setStudentStatus(req.isStudentStatus());
+        studentEntity.setStudentStatus(false);
         studentEntity.setCreateBy("System");
         studentEntity.setCreateDate(LocalDateTime.now());
         studentRepository.save(studentEntity);
 
+        response.setMessage("Student created successfully");
         return response;
     }
 
@@ -108,7 +108,9 @@ public class StudentService {
     @Transactional
     public CommonResponse<StudentDTO.DeleteStudentReq> delete(StudentDTO.DeleteStudentReq id) {
         CommonResponse<StudentDTO.DeleteStudentReq> response = new CommonResponse<>();
-        studentRepository.delete(id.getId());
+        StudentEntity studentEntity = studentRepository.findById(id.getId()).orElseThrow(() -> new HandleException(ErrorCode.DATA_NOT_FOUND_IN_ID));
+        studentEntity.setDelete(true);
+        studentRepository.delete(studentEntity);
 
         return response;
     }

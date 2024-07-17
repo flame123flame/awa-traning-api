@@ -7,6 +7,7 @@
 package awa.training.api.feature.student.repository;
 
 import awa.training.api.feature.student.entity.StudentEntity;
+import awa.training.api.feature.teacher.entity.TeacherEntity;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -21,9 +22,12 @@ import java.util.Optional;
 @Repository
 public interface StudentRepository extends JpaRepository<StudentEntity, Long> {
 
-    @Transactional
-    Optional<StudentEntity> findByUsername(String universityName);
-    boolean existsByStudentName(String studentName);
+//    @Transactional
+//    Optional<StudentEntity> findByUsername(String universityName);
+//    boolean existsByStudentName(String studentName);
+@Transactional
+@Query(value = "select * from student WHERE student_id = :student_id" , nativeQuery = true)
+Optional<StudentEntity> findByStudentName(@Param("student_id") Long studentId);
 
     @Transactional
     @Query(value = "select * from student" , nativeQuery = true)
